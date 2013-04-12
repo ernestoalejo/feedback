@@ -1,4 +1,0 @@
-feedback
-========
-
-JS Feedback library.

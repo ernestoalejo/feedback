@@ -1,0 +1,37 @@
+
+clientonly: true
+
+recess:
+  - source: bootstrap/main.less
+    dest:   bootstrap.css
+
+sass:
+  - source: app.scss
+    dest:   app.css
+
+watch:
+  - task: recess
+    paths:
+      - app/components/bootstrap/less/*.less
+      - app/styles/bootstrap/*.less
+
+  - task: sass
+    paths:
+      - app/styles/*.scss
+
+dist:
+  - base.html
+  - components/jquery/jquery.min.js
+  - favicon.ico
+  - fonts
+  - images
+  - robots.txt
+  - scripts/ie.js
+  - scripts/test.js
+  - scripts/feedback.js
+  - styles/feedback.css
+
+ngtemplates:
+  appendto: scripts/feedback.js
+  files:
+    - views/**
