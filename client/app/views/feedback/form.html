@@ -1,4 +1,41 @@
 
-<div class="hero-unit">
-  <h3>Enjoy coding!</h3>
+<div ng-controller="FeedbackFormCtrl">
+  <div modal="dlgOpened" close="close()" options="opts" style="display: none;">
+    <div class="modal-header">
+      <button class="close" ng-click="close()">&times;</button>
+      <h4>Feedback</h4>
+    </div>
+    <div class="modal-body">
+      <p>Feedback te permite enviar sugerencias sobre nuestros productos. Agradecemos
+        informes sobre problemas, ideas de funcionalidades y comentarios generales.</p>
+      <p>Empieza por escribir una breve descripción:</p>
+      <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
+         id="message"></textarea>
+      <label for="screenshot" class="checkbox">
+        <input type="checkbox" ng-model="screenshot" name="screenshot" id="screenshot">
+        Identificar a continuación las áreas de la página relacionadas con tu
+        descripción.
+      </label>
+    </div>
+    <div class="modal-footer">
+      <span style="color: red; padding-right: 15px;" ng-show="messageErr">
+        Introduce una descripción</span>
+      <button class="btn btn-primary" ng-show="!screenshot" ng-click="send()">
+        Enviar mensaje</button>
+      <button class="btn" ng-click="next()" ng-show="screenshot">Siguiente</button>
+    </div>
+  </div>
+
+  <div modal="successOpened" close="closeSuccess()" options="opts" style="display: none;">
+    <div class="modal-header">
+      <button class="close" ng-click="closeSuccess()">&times;</button>
+      <h4>Feedback</h4>
+    </div>
+    <div class="modal-body">
+      <p>Hemos recibido tu mensaje correctamente. Gracias por tu participación.</p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" ng-click="closeSuccess()">Cerrar</button>
+    </div>
+  </div>
 </div>
