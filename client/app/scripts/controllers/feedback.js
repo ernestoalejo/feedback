@@ -183,3 +183,8 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
   $scope.activate();
 });
+
+
+// Hacer el diálogo dnd
+// Añadirle la UI del highlight step.
+// Hacer selecciones, borrarlas e incorporarlas al canvas.
