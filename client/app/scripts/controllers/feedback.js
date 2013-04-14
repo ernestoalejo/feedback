@@ -29,7 +29,8 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.FeedbackStep = FeedbackStep;
   $scope.opts = {
     backdropFade: true,
-    dialogFade: true
+    dialogFade: true,
+    backdropClick: false
   };
 
   $scope.getData = function() {
@@ -40,8 +41,8 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     // Navigator info
     data.browser = {};
-    var navigatorProps = ['appCodeName', 'appName', 'appVersion', 'cookieEnabled',
-      'onLine', 'platform', 'userAgent', 'javaEnabled'];
+    var navigatorProps = ['appCodeName', 'appName', 'appVersion',
+      'cookieEnabled', 'onLine', 'platform', 'userAgent', 'javaEnabled'];
     for (var i = 0; i < navigatorProps.length; i++) {
       var name = navigatorProps[i];
       data.browser[name] = navigator[name];
@@ -59,7 +60,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     data.page = {location: location.href};
 
     return data;
-  }
+  };
 
   $scope.prepareAccordion = function() {
     $scope.data = $scope.getData();
@@ -69,7 +70,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
       browserInfo: false,
       pageInfo: false
     };
-  }
+  };
 
   $scope.takeScreenshot = function() {
     // Go directly to the next step if the screenshot is already taken
@@ -94,7 +95,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
         }
       });
     }, 1000);
-  }
+  };
 
   $scope.buildScreenshot = function() {
     $scope.screenshotData = '';
@@ -114,7 +115,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     $scope.screenshotData = canvas.toDataURL();
     $scope.screenshotPrepared = true;
-  }
+  };
 
   $scope.activate = function() {
     $scope.step = FeedbackStep.DESCRIPTION;
@@ -143,7 +144,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
       $scope.step = FeedbackStep.REVIEW;
       $scope.prepareAccordion();
     }
-  }
+  };
 
   $scope.reviewPrev = function() {
     if ($scope.screenshot)
