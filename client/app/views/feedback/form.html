@@ -6,36 +6,75 @@
       <h4>Feedback</h4>
     </div>
     <div class="modal-body">
-      <p>Feedback te permite enviar sugerencias sobre nuestros productos. Agradecemos
-        informes sobre problemas, ideas de funcionalidades y comentarios generales.</p>
-      <p>Empieza por escribir una breve descripción:</p>
-      <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
-         id="message"></textarea>
-      <label for="screenshot" class="checkbox">
-        <input type="checkbox" ng-model="screenshot" name="screenshot" id="screenshot">
-        Identificar a continuación las áreas de la página relacionadas con tu
-        descripción.
-      </label>
+  
+      <div ng-show="step == FeedbackStep.DESCRIPTION">
+        <p>Feedback te permite enviar sugerencias sobre nuestros productos. Agradecemos
+          informes sobre problemas, ideas de funcionalidades y comentarios generales.</p>
+        <p>Empieza por escribir una breve descripción:</p>
+        <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
+           id="message"></textarea>
+        <label for="screenshot" class="checkbox">
+          <input type="checkbox" ng-model="screenshot" name="screenshot" id="screenshot">
+          Identificar a continuación las áreas de la página relacionadas con tu
+          descripción.
+        </label>
+      </div>
+
+      <div ng-show="step == FeedbackStep.SUCCESS">
+        <p>Hemos recibido tu mensaje correctamente. Gracias por tu participación.</p>
+      </div>
+
+      <div ng-show="step == FeedbackStep.SCREENSHOT">
+        <p>Espera mientras tomamos una instantánea de la página para que puedas resaltar
+          las zonas relevantes.</p>
+      </div>
+
+      <div ng-show="step == FeedbackStep.REVIEW">
+        <p><b>Descripción</b></p>
+        <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
+           id="message"></textarea>
+        <p><b>Captura de pantalla</b></p>
+        <p><img ng-show="screenshotPrepared" ng-src="{{screenshotData}}"></p>
+        <p><b>Información adicional</b></p>
+      </div>
+
     </div>
     <div class="modal-footer">
-      <span style="color: red; padding-right: 15px;" ng-show="messageErr">
-        Introduce una descripción</span>
-      <button class="btn btn-primary" ng-show="!screenshot" ng-click="send()">
-        Enviar mensaje</button>
-      <button class="btn" ng-click="next()" ng-show="screenshot">Siguiente</button>
+
+      <div ng-show="step == FeedbackStep.DESCRIPTION">
+        <span style="color: red; padding-right: 15px;" ng-show="messageErr">
+          Introduce una descripción</span>
+        <button class="btn btn-primary" ng-show="!screenshot" ng-click="sendMessageOnly()">
+          Enviar mensaje</button>
+        <button class="btn" ng-click="takeScreenshot()" ng-show="screenshot">Siguiente</button>
+      </div>
+
+      <div ng-show="step == FeedbackStep.SUCCESS">
+        <button class="btn btn-primary" ng-click="close()">Cerrar</button>
+      </div>
+
+      <div ng-show="step == FeedbackStep.HIGHLIGHT">
+        <button class="btn" ng-click="highlightPrev()">Anterior</button>
+        <button class="btn" ng-click="highlightNext()">Siguiente</button>
+      </div>
+
+      <div ng-show="step == FeedbackStep.REVIEW">
+        <button class="btn" ng-click="reviewPrev()">Anterior</button>
+        <button class="btn btn-primary" ng-click="sendAll()">Enviar</button>
+      </div>
+
     </div>
   </div>
 
-  <div modal="successOpened" close="closeSuccess()" options="opts" style="display: none;">
+  <!--<div modal="screenshotOpened" close="closeScreenshot()" options="opts"
+    style="display: none;">
     <div class="modal-header">
-      <button class="close" ng-click="closeSuccess()">&times;</button>
+      <button class="close" ng-click="closeScreenshot()">&times;</button>
       <h4>Feedback</h4>
     </div>
     <div class="modal-body">
-      <p>Hemos recibido tu mensaje correctamente. Gracias por tu participación.</p>
+      <p>Espera mientras tomamos una instantánea de la página para que puedas
+        resaltar las zonas relevantes.</p>
     </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" ng-click="closeSuccess()">Cerrar</button>
-    </div>
-  </div>
+  </div>-->
 </div>

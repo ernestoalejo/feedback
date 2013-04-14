@@ -30,6 +30,8 @@
     <div ng-include="template"></div>
   </div>
 
+  {% template "loremipsum" . %}
+
   {% template "scripts" . %}
 
   {% if .Test %}
@@ -41,6 +43,44 @@
 
 </body>
 </html>
+{% end %}
+
+{% define "loremipsum" %}
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+  eligendi doloribus ipsam optio officia doloremque nesciunt sed suscipit?
+  A aperiam obcaecati inventore cupiditate nihil dicta repellat minima
+  reiciendis voluptates nemo.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iure minima
+  quidem odio eum reiciendis sapiente impedit. Ullam placeat laudantium esse
+  fugiat ab cupiditate earum iure culpa ipsa quidem hic tempore.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptatibus soluta dolore excepturi mollitia sint accusantium officiis obcaecati nesciunt sed eligendi incidunt distinctio hic magnam rerum illo fugit suscipit expedita quo.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Voluptate voluptatem distinctio enim laudantium aliquid animi consequatur ipsum dolorem non est maxime soluta nobis odit porro reprehenderit eius similique voluptatibus veritatis.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime tempora asperiores doloribus animi veritatis ex rem autem rerum deserunt quidem perferendis placeat et sunt praesentium sint tempore assumenda molestiae natus.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aperiam quod dolore similique ducimus modi maxime commodi pariatur voluptatem repellendus mollitia. Velit corrupti rerum distinctio in saepe blanditiis dolorum doloremque optio!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit reprehenderit repellendus natus temporibus ex minus rerum placeat quasi alias inventore maiores eum consequatur doloribus minima doloremque quia corporis modi nesciunt!</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magni aperiam perspiciatis atque fugit expedita doloribus corrupti dignissimos nesciunt fuga id praesentium repellat doloremque ipsum voluptas similique earum itaque quo quae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A voluptates ipsam aperiam amet officiis quod eligendi debitis magni quam consequuntur. A dolorem voluptas corrupti officia modi quis cupiditate atque obcaecati.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique quos
+  ut aliquid ipsam odit non aut voluptate ex sapiente quis tempora error sed
+  totam sequi expedita blanditiis tenetur provident molestiae.</p>
 {% end %}
 
 {% define "scripts" %}
@@ -56,6 +96,7 @@
   <!-- compile scripts/angular-ui.js -->
     <script src="components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
   <!-- endcompile -->
+  <!-- min --><script src="components/bower-html2canvas/html2canvas.js"></script>
 
   <!-- compile scripts/scripts.js -->
     <script src="scripts/app.js"></script>
