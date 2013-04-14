@@ -30,12 +30,28 @@
       </div>
 
       <div ng-show="step == FeedbackStep.REVIEW">
-        <p><b>Descripción</b></p>
-        <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
-           id="message"></textarea>
-        <p><b>Captura de pantalla</b></p>
-        <p><img ng-show="screenshotPrepared" ng-src="{{screenshotData}}"></p>
-        <p><b>Información adicional</b></p>
+        <p>Se enviarán la descripción, la captura de pantalla, la información adicional
+          y la información de la página que tienes a continuación:</p><br>
+        <accordion close-others="false">
+          <accordion-group heading="Descripción" is-open="groups.description">
+            <textarea class="span6" ng-model="message" rows="4"
+              placeholder="Escribe aquí..." id="message"></textarea>
+          </accordion-group>
+
+          <accordion-group heading="Captura de pantalla" is-open="groups.screenshot">
+            <img ng-show="screenshotPrepared" ng-src="{{screenshotData}}">
+          </accordion-group>
+
+          <accordion-group heading="Información adicional" is-open="groups.browserInfo">
+            <span ng-repeat="(key, value) in data.browser">{{key}}: {{value}}<br></span>
+            pluginNames:<br>
+            <span ng-repeat="name in data.plugins">&nbsp;&nbsp;&nbsp;- {{name}}<br></span>
+          </accordion-group>
+
+          <accordion-group heading="Información de la página" is-open="groups.pageInfo">
+            URL: {{data.page.location}}
+          </accordion-group>
+        </accordion> 
       </div>
 
     </div>
@@ -59,8 +75,10 @@
       </div>
 
       <div ng-show="step == FeedbackStep.REVIEW">
+        <span style="color: red; padding-right: 15px;" ng-show="messageErr">
+          Introduce una descripción</span>
         <button class="btn" ng-click="reviewPrev()">Anterior</button>
-        <button class="btn btn-primary" ng-click="sendAll()">Enviar</button>
+        <button class="btn btn-primary" ng-click="sendWithScreenshot()">Enviar</button>
       </div>
 
     </div>

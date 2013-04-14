@@ -35,6 +35,35 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     dialogFade: true
   };
 
+  function getData() {
+    var data = {};
+
+    // Message
+    data.message = $scope.message;
+
+    // Navigator info
+    data.browser = {};
+    var navigatorProps = ['appCodeName', 'appName', 'appVersion', 'cookieEnabled',
+      'onLine', 'platform', 'userAgent', 'javaEnabled'];
+    for (var i = 0; i < navigatorProps.length; i++) {
+      var name = navigatorProps[i];
+      data.browser[name] = navigator[name];
+    }
+    data.browser.jsversion = window.jsversion;
+
+    // Plugins info
+    data.plugins = [];
+    for (var i = 0; i < navigator.plugins.length; i++) {
+      var plugin = navigator.plugins[i];
+      data.plugins.push(plugin.name + ': ' + plugin.description);
+    }
+
+    // Page info
+    data.page = {location: location.href};
+
+    return data;
+  }
+
   $scope.activate = function() {
     $scope.step = FeedbackStep.DESCRIPTION;
     $scope.dlgOpened = true;
@@ -42,6 +71,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     $scope.message = '';
     $scope.screenshot = true;
     $scope.screenshotPrepared = false;
+    $scope.canvas = null;
 
     // TODO: Remove this
     $scope.message = 'foobar';
@@ -60,17 +90,13 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     }
     $scope.messageErr = false;
 
-    var msg = $scope.message;
-    $scope.message = '';
-
-    $http.post('/_/feedback/message', {message: $scope.message}).then(function() {
+    $http.post('/_/feedback/message', getData()).then(function() {
       $scope.step = FeedbackStep.SUCCESS;
-    }).error(function() {
-      $scope.message = msg;
     });
   };
 
   $scope.takeScreenshot = function() {
+    // Go directly to the next step if the screenshot is already taken
     if ($scope.canvas) {
       $scope.step = FeedbackStep.HIGHLIGHT;
       return;
@@ -78,10 +104,10 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     $scope.step = FeedbackStep.SCREENSHOT;
 
+    // Take an async screenshot and go to the next step
     setTimeout(function() {
       html2canvas(document.body, {
         onrendered: function(canvas) {
-          // TODO: Change to highlight
           $scope.$apply(function() {
             $scope.canvas = canvas;
             $scope.step = FeedbackStep.HIGHLIGHT;
@@ -97,11 +123,13 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.buildScreenshot = function() {
     $scope.screenshotData = '';
 
+    // Take measures of the viewport
     var width = $(window).width();
     var height = $(window).height();
     var top = $(document).scrollTop();
     var left = $(document).scrollLeft();
 
+    // Copy the correct area of the page
     var canvas = document.createElement('canvas');
     canvas.width = width;
     canvas.height = height;
@@ -110,6 +138,15 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     $scope.screenshotData = canvas.toDataURL();
     $scope.screenshotPrepared = true;
+
+    // Prepare accordion data
+    $scope.data = getData();
+    $scope.groups = {
+      description: false,
+      screenshot: false,
+      browserInfo: false,
+      pageInfo: false
+    };
   };
 
   $scope.reviewPrev = function() {
@@ -123,6 +160,18 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.highlightNext = function() {
     $scope.step = FeedbackStep.REVIEW;
     $scope.buildScreenshot();
+  };
+
+  $scope.sendWithScreenshot = function() {
+    if ($scope.message.length < 2) {
+      $scope.messageErr = true;
+      return;
+    }
+    $scope.messageErr = false;
+
+    $http.post('/_/feedback/screenshot', getData()).then(function() {
+      $scope.step = FeedbackStep.SUCCESS;
+    });
   };
 
   $scope.activate();
