@@ -30,7 +30,8 @@
       </div>
 
       <div ng-show="step == FeedbackStep.REVIEW">
-        <p>Se enviarán la descripción, la captura de pantalla, la información adicional
+        <p>Se enviarán la descripción, <span ng-show="screenshot">la captura de
+          pantalla, </span>la información adicional
           y la información de la página que tienes a continuación:</p><br>
         <accordion close-others="false">
           <accordion-group heading="Descripción" is-open="groups.description">
@@ -38,7 +39,8 @@
               placeholder="Escribe aquí..." id="message"></textarea>
           </accordion-group>
 
-          <accordion-group heading="Captura de pantalla" is-open="groups.screenshot">
+          <accordion-group heading="Captura de pantalla" is-open="groups.screenshot"
+            ng-show="screenshot">
             <img ng-show="screenshotPrepared" ng-src="{{screenshotData}}">
           </accordion-group>
 
@@ -60,9 +62,7 @@
       <div ng-show="step == FeedbackStep.DESCRIPTION">
         <span style="color: red; padding-right: 15px;" ng-show="messageErr">
           Introduce una descripción</span>
-        <button class="btn btn-primary" ng-show="!screenshot" ng-click="sendMessageOnly()">
-          Enviar mensaje</button>
-        <button class="btn" ng-click="takeScreenshot()" ng-show="screenshot">Siguiente</button>
+        <button class="btn" ng-click="descriptionNext()">Siguiente</button>
       </div>
 
       <div ng-show="step == FeedbackStep.SUCCESS">
@@ -78,7 +78,7 @@
         <span style="color: red; padding-right: 15px;" ng-show="messageErr">
           Introduce una descripción</span>
         <button class="btn" ng-click="reviewPrev()">Anterior</button>
-        <button class="btn btn-primary" ng-click="sendWithScreenshot()">Enviar</button>
+        <button class="btn btn-primary" ng-click="send()">Enviar</button>
       </div>
 
     </div>

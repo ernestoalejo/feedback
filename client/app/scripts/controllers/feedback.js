@@ -12,9 +12,6 @@ m.controller('FeedbackCtrl', function($scope) {
       $scope.template = 'views/feedback/form.html';
     }
   };
-
-  // TODO: Remove this
-  $scope.activate();
 });
 
 
@@ -35,7 +32,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     dialogFade: true
   };
 
-  function getData() {
+  $scope.getData = function() {
     var data = {};
 
     // Message
@@ -64,36 +61,15 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     return data;
   }
 
-  $scope.activate = function() {
-    $scope.step = FeedbackStep.DESCRIPTION;
-    $scope.dlgOpened = true;
-    $scope.messageErr = false;
-    $scope.message = '';
-    $scope.screenshot = true;
-    $scope.screenshotPrepared = false;
-    $scope.canvas = null;
-
-    // TODO: Remove this
-    $scope.message = 'foobar';
-    $scope.step = FeedbackStep.SCREENSHOT;
-    $scope.takeScreenshot();
-  };
-
-  $scope.close = function() {
-    $scope.dlgOpened = false;
-  };
-
-  $scope.sendMessageOnly = function() {
-    if ($scope.message.length < 2) {
-      $scope.messageErr = true;
-      return;
-    }
-    $scope.messageErr = false;
-
-    $http.post('/_/feedback/message', getData()).then(function() {
-      $scope.step = FeedbackStep.SUCCESS;
-    });
-  };
+  $scope.prepareAccordion = function() {
+    $scope.data = $scope.getData();
+    $scope.groups = {
+      description: false,
+      screenshot: false,
+      browserInfo: false,
+      pageInfo: false
+    };
+  }
 
   $scope.takeScreenshot = function() {
     // Go directly to the next step if the screenshot is already taken
@@ -118,7 +94,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
         }
       });
     }, 1000);
-  };
+  }
 
   $scope.buildScreenshot = function() {
     $scope.screenshotData = '';
@@ -138,19 +114,42 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     $scope.screenshotData = canvas.toDataURL();
     $scope.screenshotPrepared = true;
+  }
 
-    // Prepare accordion data
-    $scope.data = getData();
-    $scope.groups = {
-      description: false,
-      screenshot: false,
-      browserInfo: false,
-      pageInfo: false
-    };
+  $scope.activate = function() {
+    $scope.step = FeedbackStep.DESCRIPTION;
+    $scope.dlgOpened = true;
+    $scope.messageErr = false;
+    $scope.screenshot = true;
+    $scope.screenshotPrepared = false;
+    $scope.canvas = null;
   };
 
+  $scope.close = function() {
+    $scope.dlgOpened = false;
+  };
+
+  $scope.descriptionNext = function() {
+    // Check the message
+    if ($scope.message.length < 2) {
+      $scope.messageErr = true;
+      return;
+    }
+    $scope.messageErr = false;
+
+    if ($scope.screenshot)
+      $scope.takeScreenshot();
+    else {
+      $scope.step = FeedbackStep.REVIEW;
+      $scope.prepareAccordion();
+    }
+  }
+
   $scope.reviewPrev = function() {
-    $scope.step = FeedbackStep.HIGHLIGHT;
+    if ($scope.screenshot)
+      $scope.step = FeedbackStep.HIGHLIGHT;
+    else
+      $scope.step = FeedbackStep.DESCRIPTION;
   };
 
   $scope.highlightPrev = function() {
@@ -160,16 +159,23 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.highlightNext = function() {
     $scope.step = FeedbackStep.REVIEW;
     $scope.buildScreenshot();
+    $scope.prepareAccordion();
   };
 
-  $scope.sendWithScreenshot = function() {
+  $scope.send = function() {
+    // Check the (possibly modified) message
     if ($scope.message.length < 2) {
       $scope.messageErr = true;
       return;
     }
     $scope.messageErr = false;
 
-    $http.post('/_/feedback/screenshot', getData()).then(function() {
+    // Send the data
+    var data = $scope.getData();
+    if ($scope.screenshot)
+      data.screenshot = $scope.screenshotData;
+    $http.post('/_/feedback/screenshot', data).then(function() {
+      $scope.message = '';
       $scope.step = FeedbackStep.SUCCESS;
     });
   };
