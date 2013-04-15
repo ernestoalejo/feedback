@@ -6,7 +6,7 @@ var m = angular.module('directives.dnd', ['ui.bootstrap.dialog']);
 m.directive('dndModal', function($parse, $dialog) {
   return {
     restrict: 'EA',
-    terminal: true,
+    priority: 200,
     link: function(scope, elm, attrs) {
       var opts = scope.$eval(attrs.options);
       var shownExpr = attrs.dndModal;
@@ -33,18 +33,8 @@ m.directive('dndModal', function($parse, $dialog) {
           }
         }
       });
-      scope.$watch('step', function(step, oldStep) {
-        if (step == FeedbackStep.HIGHLIGHT) {
-          dialog.backdropEl.css('opacity', 0.3);
-        } else {
-          dialog.backdropEl.css('opacity', 0.8);
-        }
-      })
+
+      scope.dialog = dialog;
     }
   };
 });
-
-// Move the dialog when transitioning to any position.
-// Use ngAnimate or similar for the dialog movements.
-// Highlight step dialog UI.
-// Make squares, remove then and draw them to the canvas in the final step.
