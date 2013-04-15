@@ -33,11 +33,18 @@ m.directive('dndModal', function($parse, $dialog) {
           }
         }
       });
+      scope.$watch('step', function(step, oldStep) {
+        if (step == FeedbackStep.HIGHLIGHT) {
+          dialog.backdropEl.css('opacity', 0.3);
+        } else {
+          dialog.backdropEl.css('opacity', 0.8);
+        }
+      })
     }
   };
 });
 
-// Lighter backdrop.
-// Mover el diálogo a la esquina correcta.
-// Añadirle la UI del highlight step.
-// Hacer selecciones, borrarlas e incorporarlas al canvas.
+// Move the dialog when transitioning to any position.
+// Use ngAnimate or similar for the dialog movements.
+// Highlight step dialog UI.
+// Make squares, remove then and draw them to the canvas in the final step.

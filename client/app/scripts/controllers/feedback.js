@@ -129,7 +129,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     $scope.canvas = null;
 
     // TODO: Remove this
-    $scope.step = FeedbackStep.HIGHLIGHT;
+    $scope.message = 'foobar';
   };
 
   $scope.close = function() {
