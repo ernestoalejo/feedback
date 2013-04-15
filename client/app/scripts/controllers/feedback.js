@@ -13,6 +13,7 @@ m.controller('FeedbackCtrl', function($scope) {
     }
   };
 
+  // TODO: Remove this
   $scope.activate();
 });
 
@@ -126,6 +127,9 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     $scope.screenshot = true;
     $scope.screenshotPrepared = false;
     $scope.canvas = null;
+
+    // TODO: Remove this
+    $scope.step = FeedbackStep.HIGHLIGHT;
   };
 
   $scope.close = function() {
