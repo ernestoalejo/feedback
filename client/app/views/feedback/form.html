@@ -3,10 +3,14 @@
   <div close="close()" options="opts" style="display: none;" dnd-modal="dlgOpened"
     backdrop-drawable="step == FeedbackStep.HIGHLIGHT"
     backdrop-opacity="step == FeedbackStep.HIGHLIGHT">
+
     <div class="modal-header">
       <button class="close" ng-click="close()">&times;</button>
       <h4>Feedback</h4>
     </div>
+
+    <!-- ############################################################### -->
+
     <div class="modal-body">
   
       <div ng-show="step == FeedbackStep.DESCRIPTION">
@@ -59,6 +63,9 @@
       </div>
 
     </div>
+
+    <!-- ############################################################### -->
+
     <div class="modal-footer">
 
       <div ng-show="step == FeedbackStep.DESCRIPTION">
@@ -83,6 +90,6 @@
         <button class="btn btn-primary" ng-click="send()">Enviar</button>
       </div>
     </div>
-  </div>
 
+  </div>
 </div>
