@@ -1,6 +1,6 @@
 
 <div ng-controller="FeedbackFormCtrl">
-  <div modal="dlgOpened" close="close()" options="opts" style="display: none;">
+  <div close="close()" options="opts" style="display: none;" dnd-modal="dlgOpened">
     <div class="modal-header">
       <button class="close" ng-click="close()">&times;</button>
       <h4>Feedback</h4>
@@ -80,19 +80,7 @@
         <button class="btn" ng-click="reviewPrev()">Anterior</button>
         <button class="btn btn-primary" ng-click="send()">Enviar</button>
       </div>
-
     </div>
   </div>
 
-  <!--<div modal="screenshotOpened" close="closeScreenshot()" options="opts"
-    style="display: none;">
-    <div class="modal-header">
-      <button class="close" ng-click="closeScreenshot()">&times;</button>
-      <h4>Feedback</h4>
-    </div>
-    <div class="modal-body">
-      <p>Espera mientras tomamos una instantánea de la página para que puedas
-        resaltar las zonas relevantes.</p>
-    </div>
-  </div>-->
 </div>
