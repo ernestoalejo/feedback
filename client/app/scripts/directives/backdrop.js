@@ -29,7 +29,9 @@ m.directive('backdropDrawable', function($parse) {
   };
 });
 
-// Move the dialog when transitioning to any position.
+// Move the dialog when transitioning to any position: take the positions and
+// sizes from the scope (use watch with an object). The positions should change
+// depending on the step (make a setter in the feedbackController & a map).
 // Use ngAnimate or similar for the dialog movements.
 // Highlight step dialog UI.
 // Make squares, remove then and draw them to the canvas in the final step.

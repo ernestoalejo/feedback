@@ -78,11 +78,11 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.takeScreenshot = function() {
     // Go directly to the next step if the screenshot is already taken
     if ($scope.canvas) {
-      $scope.step = FeedbackStep.HIGHLIGHT;
+      $scope.setStep(FeedbackStep.HIGHLIGHT);
       return;
     }
 
-    $scope.step = FeedbackStep.SCREENSHOT;
+    $scope.setStep(FeedbackStep.SCREENSHOT);
 
     // Take an async screenshot and go to the next step
     setTimeout(function() {
@@ -90,7 +90,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
         onrendered: function(canvas) {
           $scope.$apply(function() {
             $scope.canvas = canvas;
-            $scope.step = FeedbackStep.HIGHLIGHT;
+            $scope.setStep(FeedbackStep.HIGHLIGHT);
           });
         },
         filterElements: function(elem) {
@@ -121,7 +121,7 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   };
 
   $scope.activate = function() {
-    $scope.step = FeedbackStep.DESCRIPTION;
+    $scope.setStep(FeedbackStep.DESCRIPTION);
     $scope.dlgOpened = true;
     $scope.messageErr = false;
     $scope.screenshot = true;
@@ -147,24 +147,24 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     if ($scope.screenshot)
       $scope.takeScreenshot();
     else {
-      $scope.step = FeedbackStep.REVIEW;
+      $scope.setStep(FeedbackStep.REVIEW);
       $scope.prepareAccordion();
     }
   };
 
   $scope.reviewPrev = function() {
     if ($scope.screenshot)
-      $scope.step = FeedbackStep.HIGHLIGHT;
+      $scope.setStep(FeedbackStep.HIGHLIGHT);
     else
-      $scope.step = FeedbackStep.DESCRIPTION;
+      $scope.setStep(FeedbackStep.DESCRIPTION);
   };
 
   $scope.highlightPrev = function() {
-    $scope.step = FeedbackStep.DESCRIPTION;
+    $scope.setStep(FeedbackStep.DESCRIPTION);
   };
 
   $scope.highlightNext = function() {
-    $scope.step = FeedbackStep.REVIEW;
+    $scope.setStep(FeedbackStep.REVIEW);
     $scope.buildScreenshot();
     $scope.prepareAccordion();
   };
@@ -183,17 +183,12 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
       data.screenshot = $scope.screenshotData;
     $http.post('/_/feedback/screenshot', data).then(function() {
       $scope.message = '';
-      $scope.step = FeedbackStep.SUCCESS;
+      $scope.setStep(FeedbackStep.SUCCESS);
     });
   };
 
-  $scope.dlgStartMove = function($event) {
-    console.log("start");
-    $event.stopPropagation();
-  };
-
-  $scope.dlgEndMove = function($event) {
-    console.log("end");
+  $scope.setStep = function(step) {
+    $scope.step = step;
   };
 
   $scope.activate();
