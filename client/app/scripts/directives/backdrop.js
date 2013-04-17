@@ -3,16 +3,14 @@
 var m = angular.module('directives.backdrop', ['directives.dnd']);
 
 
-// Drag & Drop directive for modals (the one that creates the dialog object
-// in scope) has a priority of 200. The rest should be descendent from there.
-
-
 m.directive('backdropOpacity', function($parse) {
   return {
     restrict: 'EA',
-    priority: 199,
+    require: 'dndModal',
     link: function(scope, elm, attrs) {
       scope.$watch(attrs.backdropOpacity, function(expr, oldExpr) {
+        if (!scope.dialog)
+          return;
         scope.dialog.backdropEl.css('opacity', expr ? 0.3 : 0.8);
       });
     }
@@ -23,8 +21,10 @@ m.directive('backdropOpacity', function($parse) {
 m.directive('backdropDrawable', function($parse) {
   return {
     restrict: 'EA',
-    priority: 198,
+    require: 'dndModal',
     link: function(scope, elm, attrs) {
+      if (!scope.dialog)
+        return;
     }
   };
 });
@@ -33,9 +33,12 @@ m.directive('backdropDrawable', function($parse) {
 m.directive('dialogPosition', function($parse) {
   return {
     restrict: 'EA',
-    priority: 197,
+    require: 'dndModal',
     link: function(scope, elm, attrs) {
       scope.$watch(attrs.dialogPosition, function(pos, oldPos) {
+        if (!scope.dialog)
+          return;
+
         var marginLeft = scope.dialog.modalEl.css('marginLeft');
         if (marginLeft == "")
           return;
@@ -68,4 +71,5 @@ m.directive('dialogPosition', function($parse) {
 });
 
 // Highlight step dialog UI.
+// Wider dialogs.
 // Make squares, remove then and draw them to the canvas in the final step.

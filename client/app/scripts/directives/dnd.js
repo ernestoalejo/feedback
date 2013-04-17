@@ -6,10 +6,8 @@ var m = angular.module('directives.dnd', ['ui.bootstrap.dialog']);
 m.directive('dndModal', function($parse, $dialog) {
   return {
     restrict: 'EA',
-
-    // directives/backdrop.js depends on this value
-    priority: 200,
-
+    controller: function() { },
+    terminal: true,
     link: function(scope, elm, attrs) {
       var opts = scope.$eval(attrs.options);
       var shownExpr = attrs.dndModal;

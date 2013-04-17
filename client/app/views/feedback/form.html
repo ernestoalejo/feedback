@@ -1,9 +1,9 @@
 
 <div ng-controller="FeedbackFormCtrl">
-  <div close="close()" options="opts" style="display: none;" dnd-modal="dlgOpened"
+  <div close="close()" options="opts" style="display: none;"
     backdrop-drawable="step == FeedbackStep.HIGHLIGHT"
     backdrop-opacity="step == FeedbackStep.HIGHLIGHT"
-    dialog-position="dlgPosition">
+    dialog-position="dlgPosition" dnd-modal="dlgOpened">
 
     <div class="modal-header">
       <button class="close" ng-click="close()">&times;</button>
@@ -19,7 +19,7 @@
           informes sobre problemas, ideas de funcionalidades y comentarios generales.</p>
         <p>Empieza por escribir una breve descripción:</p>
         <textarea class="span6" ng-model="message" rows="4" placeholder="Escribe aquí..."
-           id="message"></textarea>
+           id="message" style="display: none;"></textarea>
         <label for="screenshot" class="checkbox">
           <input type="checkbox" ng-model="screenshot" name="screenshot" id="screenshot">
           Identificar a continuación las áreas de la página relacionadas con tu
@@ -34,6 +34,12 @@
       <div ng-show="step == FeedbackStep.SCREENSHOT">
         <p>Espera mientras tomamos una instantánea de la página para que puedas resaltar
           las zonas relevantes.</p>
+      </div>
+
+      <div ng-show="step == FeedbackStep.HIGHLIGHT">
+        <p>Haz click y arrastra el cursor por la página para ayudarnos a entender
+          tus observaciones. Puedes mover este cuadro de diálogo si te molesta.</p>
+
       </div>
 
       <div ng-show="step == FeedbackStep.REVIEW">
