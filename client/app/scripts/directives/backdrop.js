@@ -18,18 +18,6 @@ m.directive('backdropOpacity', function($parse) {
 });
 
 
-m.directive('backdropDrawable', function($parse) {
-  return {
-    restrict: 'EA',
-    require: 'dndModal',
-    link: function(scope, elm, attrs) {
-      if (!scope.dialog)
-        return;
-    }
-  };
-});
-
-
 m.directive('dialogPosition', function($parse) {
   return {
     restrict: 'EA',
@@ -60,7 +48,7 @@ m.directive('dialogPosition', function($parse) {
           var dlgWidth = scope.dialog.modalEl.width();
           scope.dialog.modalEl.offset({
            left: winSize.w - dlgWidth - 30,
-           top: winSize.h - 200
+           top: winSize.h - 336
           });
         } else {
           throw new Error("invalid dialog position");
@@ -70,6 +58,25 @@ m.directive('dialogPosition', function($parse) {
   };
 });
 
-// Highlight step dialog UI.
+
+m.directive('backdropDrawable', function($parse) {
+  return {
+    restrict: 'EA',
+    require: 'dndModal',
+    link: function(scope, elm, attrs) {
+      scope.$watch(attrs.backdropDrawable, function(drawable, old) {
+        if (!scope.dialog)
+          return;
+
+        scope.operation = 'highlight';
+
+        if (drawable) {
+        } else {
+        }
+      });
+    }
+  };
+});
+
 // Wider dialogs.
 // Make squares, remove then and draw them to the canvas in the final step.

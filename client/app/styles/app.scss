@@ -1,7 +1,21 @@
 
+// Animates horizontal & vertical movements of the dialogs (bootstrap only
+// animates the vertical ones).
 .modal.fade {
-  -webkit-transition: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
-     -moz-transition: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
-       -o-transition: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
-          transition: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
+  $animation: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
+  -webkit-transition: $animation;
+     -moz-transition: $animation;
+       -o-transition: $animation;
+          transition: $animation;
 }
+
+
+// Both highlight "rows" should have the correct padding
+.highlight-operation {
+  padding: {
+    top: 7px;
+    bottom: 7px;
+  }
+}
+
+

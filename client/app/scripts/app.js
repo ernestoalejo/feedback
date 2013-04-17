@@ -7,6 +7,7 @@ var m = angular.module('app', [
   'directives.dnd',
   'httpInterceptor',
   'ui.bootstrap.accordion',
+  'ui.bootstrap.buttons',
   'ui.bootstrap.modal',
   'ui.bootstrap.tpls'
 ]);

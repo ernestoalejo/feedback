@@ -40,6 +40,26 @@
         <p>Haz click y arrastra el cursor por la página para ayudarnos a entender
           tus observaciones. Puedes mover este cuadro de diálogo si te molesta.</p>
 
+        <div class="highlight-operation">
+          <div class="pull-left span2">
+            <button class="btn" ng-model="operation" btn-radio="'highlight'">
+              <i class="icon-pencil"></i> &nbsp;Resaltar
+            </button>
+          </div>
+          <div class="pull-left span4" style="margin-left: 0">Resalta las
+            áreas relevantes para tus observaciones.</div>
+          <div class="clearfix">&nbsp;</div>
+        </div>
+        <div class="highlight-operation">
+          <div class="pull-left span2">
+            <button class="btn" ng-model="operation" btn-radio="'black-out'">
+              <i class="icon-stop"></i> &nbsp;Sombrear
+            </button>
+          </div>
+          <div class="pull-left span4" style="margin-left: 0">Sombrea cualquier
+            información personal que haya</div>
+          <div class="clearfix">&nbsp;</div>
+        </div>
       </div>
 
       <div ng-show="step == FeedbackStep.REVIEW">
