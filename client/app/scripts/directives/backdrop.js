@@ -25,11 +25,6 @@ m.directive('dialogPosition', function($parse) {
         if (!scope.dialog)
           return;
 
-        var marginLeft = scope.dialog.modalEl.css('marginLeft');
-        if (marginLeft == "")
-          return;
-        marginLeft = parseInt(marginLeft, 10);
-
         scope.dialog.modalEl.removeAttr("style");
 
         var winSize = {
@@ -38,15 +33,15 @@ m.directive('dialogPosition', function($parse) {
         };
 
         if (pos == 'original') {
-          scope.dialog.modalEl.offset({
-            left: winSize.w / 2 + marginLeft,
-            top: winSize.h / 10
+          scope.dialog.modalEl.css({
+            left: (winSize.w / 2) + 'px',
+            top: (winSize.h / 10) + 'px'
           });
         } else if (pos == 'corner') {
           var dlgWidth = scope.dialog.modalEl.width();
-          scope.dialog.modalEl.offset({
-           left: winSize.w - dlgWidth - 30,
-           top: winSize.h - 325
+          scope.dialog.modalEl.css({
+           left: (winSize.w - dlgWidth/2 - 30) + 'px',
+           top: (winSize.h - 325) + 'px'
           });
         } else {
           throw new Error("invalid dialog position");
@@ -75,5 +70,4 @@ m.directive('backdropDrawable', function($parse) {
   };
 });
 
-// Wider dialogs.
 // Make squares, remove then and draw them to the canvas in the final step.

@@ -47,7 +47,6 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
     // TODO: Remove this
     $scope.message = 'foobar';
-    $scope.setStep(FeedbackStep.HIGHLIGHT);
   };
 
   $scope.getData = function() {
