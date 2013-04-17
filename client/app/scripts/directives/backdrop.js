@@ -67,6 +67,5 @@ m.directive('dialogPosition', function($parse) {
   };
 });
 
-// Add horizontal animations for the dialog.
 // Highlight step dialog UI.
 // Make squares, remove then and draw them to the canvas in the final step.
