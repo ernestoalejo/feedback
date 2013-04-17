@@ -2,7 +2,8 @@
 <div ng-controller="FeedbackFormCtrl">
   <div close="close()" options="opts" style="display: none;" dnd-modal="dlgOpened"
     backdrop-drawable="step == FeedbackStep.HIGHLIGHT"
-    backdrop-opacity="step == FeedbackStep.HIGHLIGHT">
+    backdrop-opacity="step == FeedbackStep.HIGHLIGHT"
+    dialog-position="dlgPosition">
 
     <div class="modal-header">
       <button class="close" ng-click="close()">&times;</button>

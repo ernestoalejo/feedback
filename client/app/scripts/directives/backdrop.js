@@ -29,9 +29,44 @@ m.directive('backdropDrawable', function($parse) {
   };
 });
 
-// Move the dialog when transitioning to any position: take the positions and
-// sizes from the scope (use watch with an object). The positions should change
-// depending on the step (make a setter in the feedbackController & a map).
-// Use ngAnimate or similar for the dialog movements.
+
+m.directive('dialogPosition', function($parse) {
+  return {
+    restrict: 'EA',
+    priority: 197,
+    link: function(scope, elm, attrs) {
+      scope.$watch(attrs.dialogPosition, function(pos, oldPos) {
+        var marginLeft = scope.dialog.modalEl.css('marginLeft');
+        if (marginLeft == "")
+          return;
+        marginLeft = parseInt(marginLeft, 10);
+
+        scope.dialog.modalEl.removeAttr("style");
+
+        var winSize = {
+          w: $(window).width(),
+          h: $(window).height()
+        };
+
+        if (pos == 'original') {
+          scope.dialog.modalEl.offset({
+            left: winSize.w / 2 + marginLeft,
+            top: winSize.h / 10
+          });
+        } else if (pos == 'corner') {
+          var dlgWidth = scope.dialog.modalEl.width();
+          scope.dialog.modalEl.offset({
+           left: winSize.w - dlgWidth - 30,
+           top: winSize.h - 200
+          });
+        } else {
+          throw new Error("invalid dialog position");
+        }
+      });
+    }
+  };
+});
+
+// Add horizontal animations for the dialog.
 // Highlight step dialog UI.
 // Make squares, remove then and draw them to the canvas in the final step.

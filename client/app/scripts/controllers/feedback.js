@@ -36,6 +36,18 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     backdropClick: false
   };
 
+  $scope.activate = function() {
+    $scope.setStep(FeedbackStep.DESCRIPTION);
+    $scope.dlgOpened = true;
+    $scope.messageErr = false;
+    $scope.screenshot = true;
+    $scope.screenshotPrepared = false;
+    $scope.canvas = null;
+
+    // TODO: Remove this
+    $scope.message = 'foobar';
+  };
+
   $scope.getData = function() {
     var data = {};
 
@@ -120,18 +132,6 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
     $scope.screenshotPrepared = true;
   };
 
-  $scope.activate = function() {
-    $scope.setStep(FeedbackStep.DESCRIPTION);
-    $scope.dlgOpened = true;
-    $scope.messageErr = false;
-    $scope.screenshot = true;
-    $scope.screenshotPrepared = false;
-    $scope.canvas = null;
-
-    // TODO: Remove this
-    $scope.message = 'foobar';
-  };
-
   $scope.close = function() {
     $scope.dlgOpened = false;
   };
@@ -189,6 +189,19 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
 
   $scope.setStep = function(step) {
     $scope.step = step;
+
+    switch (step) {
+      case FeedbackStep.DESCRIPTION:
+      case FeedbackStep.REVIEW:
+      case FeedbackStep.SUCCESS:
+        $scope.dlgPosition = 'original';
+        break;
+
+      case FeedbackStep.SCREENSHOT:
+      case FeedbackStep.HIGHLIGHT:
+        $scope.dlgPosition = 'corner';
+        break;
+    }
   };
 
   $scope.activate();
