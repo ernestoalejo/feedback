@@ -3,6 +3,7 @@
 var m = angular.module('directives.backdrop', ['directives.dnd']);
 
 
+// Watch an expression to apply a lighter backdrop to the modal if it's true.
 m.directive('backdropOpacity', function($parse) {
   return {
     restrict: 'EA',
@@ -17,6 +18,9 @@ m.directive('backdropOpacity', function($parse) {
 });
 
 
+// Change the dialog position between two values:
+//   - 'original' -> (half width, 10%) from the top left corner.
+//   - 'corner'   -> (30, 30) from the bottom right corner.
 m.directive('dialogPosition', function($parse) {
   return {
     restrict: 'EA',
@@ -52,6 +56,8 @@ m.directive('dialogPosition', function($parse) {
 });
 
 
+// Watch the expr to enable a drawing canvas in the backdrop when it
+// evaluates to true.
 m.directive('backdropDrawable', function($parse) {
   return {
     restrict: 'EA',
