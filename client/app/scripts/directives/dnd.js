@@ -18,24 +18,23 @@ m.directive('dndModal', function($parse, $dialog) {
       });
       elm.remove();
 
-      var dialog = $dialog.dialog(opts);
-      var dragger = new Dragger(dialog.modalEl);
+      scope.dialog = $dialog.dialog(opts);
+
+      var dragger = new Dragger(scope.dialog.modalEl);
       scope.$watch(shownExpr, function(isShown, oldShown) {
         if (isShown) {
           dragger.bind();
-          dialog.open().then(function() {
+          scope.dialog.open().then(function() {
             dragger.unbind();
             $parse(attrs.close)(scope);
           });
         } else {
-          if (dialog.isOpen()) {
+          if (scope.dialog.isOpen()) {
             dragger.unbind();
-            dialog.close();
+            scope.dialog.close();
           }
         }
       });
-
-      scope.dialog = dialog;
     }
   };
 });

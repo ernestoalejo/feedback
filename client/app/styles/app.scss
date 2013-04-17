@@ -1,7 +1,15 @@
 
+
+// Wider dialogs than the default bootstrap ones
+.feedback-modal {
+  width: 610px;
+  margin-left: -305px;
+}
+
+
 // Animates horizontal & vertical movements of the dialogs (bootstrap only
 // animates the vertical ones).
-.modal.fade {
+.feedback-modal.fade {
   $animation: opacity 0.3s linear, top 0.3s ease-out, left 0.3s ease-out;
   -webkit-transition: $animation;
      -moz-transition: $animation;

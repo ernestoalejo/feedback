@@ -1,9 +1,9 @@
 
 <div ng-controller="FeedbackFormCtrl">
-  <div close="close()" options="opts" style="display: none;"
+  <div close="close()" options="opts" style="display: none;" dnd-modal="dlgOpened"
     backdrop-drawable="step == FeedbackStep.HIGHLIGHT"
     backdrop-opacity="step == FeedbackStep.HIGHLIGHT"
-    dialog-position="dlgPosition" dnd-modal="dlgOpened">
+    dialog-position="dlgPosition">
 
     <div class="modal-header">
       <button class="close" ng-click="close()">&times;</button>
@@ -46,7 +46,7 @@
               <i class="icon-pencil"></i> &nbsp;Resaltar
             </button>
           </div>
-          <div class="pull-left span4" style="margin-left: 0">Resalta las
+          <div class="pull-left span5" style="margin-left: 0">Resalta las
             áreas relevantes para tus observaciones.</div>
           <div class="clearfix">&nbsp;</div>
         </div>
@@ -56,7 +56,7 @@
               <i class="icon-stop"></i> &nbsp;Sombrear
             </button>
           </div>
-          <div class="pull-left span4" style="margin-left: 0">Sombrea cualquier
+          <div class="pull-left span5" style="margin-left: 0">Sombrea cualquier
             información personal que haya</div>
           <div class="clearfix">&nbsp;</div>
         </div>

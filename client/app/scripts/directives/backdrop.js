@@ -6,7 +6,6 @@ var m = angular.module('directives.backdrop', ['directives.dnd']);
 m.directive('backdropOpacity', function($parse) {
   return {
     restrict: 'EA',
-    require: 'dndModal',
     link: function(scope, elm, attrs) {
       scope.$watch(attrs.backdropOpacity, function(expr, oldExpr) {
         if (!scope.dialog)
@@ -21,7 +20,6 @@ m.directive('backdropOpacity', function($parse) {
 m.directive('dialogPosition', function($parse) {
   return {
     restrict: 'EA',
-    require: 'dndModal',
     link: function(scope, elm, attrs) {
       scope.$watch(attrs.dialogPosition, function(pos, oldPos) {
         if (!scope.dialog)
@@ -48,7 +46,7 @@ m.directive('dialogPosition', function($parse) {
           var dlgWidth = scope.dialog.modalEl.width();
           scope.dialog.modalEl.offset({
            left: winSize.w - dlgWidth - 30,
-           top: winSize.h - 336
+           top: winSize.h - 325
           });
         } else {
           throw new Error("invalid dialog position");
@@ -62,7 +60,6 @@ m.directive('dialogPosition', function($parse) {
 m.directive('backdropDrawable', function($parse) {
   return {
     restrict: 'EA',
-    require: 'dndModal',
     link: function(scope, elm, attrs) {
       scope.$watch(attrs.backdropDrawable, function(drawable, old) {
         if (!scope.dialog)

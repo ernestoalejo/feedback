@@ -33,7 +33,8 @@ m.controller('FeedbackFormCtrl', function($scope, $http) {
   $scope.opts = {
     backdropFade: true,
     dialogFade: true,
-    backdropClick: false
+    backdropClick: false,
+    dialogClass: 'modal feedback-modal'
   };
 
   $scope.activate = function() {
